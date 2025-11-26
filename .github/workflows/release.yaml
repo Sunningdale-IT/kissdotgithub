@@ -25,20 +25,19 @@ jobs:
         with:
           version: v3.14.4
 
-      - name: find files to release
-        run: |
-          find . -name "Chart.yaml"
-          echo "Found $(find . -name "Chart.yaml" | wc -l) charts"
-          find . -name "Chart.yaml" | while read -r chart; do
-            echo "Chart: $chart"
-            helm show chart $chart
-          done
+      # - name: find files to release
+      #   run: |
+      #     find . -name "Chart.yaml"
+      #     echo "Found $(find . -name "Chart.yaml" | wc -l) charts"
+      #     find . -name "Chart.yaml" | while read -r chart; do
+      #       echo "Chart: $chart"
+      #       helm show chart $chart
+      #     done
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
         with:
-          charts_dir: docs/scripts/elastic/eck
-
+          charts_dir: ./docs/scripts/elastic/eck/
       # - name: Add dependency chart repos
       #   run: |
       #     helm repo add bitnami https://charts.bitnami.com/bitnami
