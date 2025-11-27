@@ -8,6 +8,9 @@ on:
 
 jobs:
   release:
+    permissions:
+      contents: write
+      packages: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,24 +27,6 @@ jobs:
         uses: azure/setup-helm@v4.2.0
         with:
           version: v3.14.4
-
-      # - name: find files to release
-      #   run: |
-      #     find . -name "Chart.yaml"
-      #     echo "Found $(find . -name "Chart.yaml" | wc -l) charts"
-      #     find . -name "Chart.yaml" | while read -r chart; do
-      #       echo "Chart: $chart"
-      #       helm show chart $chart
-      #     done
-
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.7.0
-        with:
-          charts_dir: ./docs/scripts/elastic/eck/
-      # - name: Add dependency chart repos
-      #   run: |
-      #     helm repo add bitnami https://charts.bitnami.com/bitnami
-      #     helm repo add maykin https://maykinmedia.github.io/charts/
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
