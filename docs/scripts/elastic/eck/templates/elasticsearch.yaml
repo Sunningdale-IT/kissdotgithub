@@ -20,4 +20,16 @@ spec:
         nodeSelector:
           {{- toYaml . | nindent 10 }}
         {{- end }}
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.storage.elasticsearch.size }}
+        {{- if .Values.storage.storageClassName }}
+        storageClassName: {{ .Values.storage.storageClassName }}
+        {{- end }}
   version: {{ .Values.elasticVersion }}

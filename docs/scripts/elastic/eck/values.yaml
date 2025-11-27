@@ -4,6 +4,20 @@ elasticVersion: 8.9.0
 elasticsearchCount: 3
 nodeSelector: {}
 
+# Storage configuration
+storage:
+  # Storage class to use for persistent volumes
+  # Leave empty to use the cluster default storage class
+  storageClassName: ""
+  
+  # Storage sizes for each component
+  elasticsearch:
+    size: 10Gi
+  kibana:
+    size: 2Gi
+  enterpriseSearch:
+    size: 5Gi
+
 eck-operator:
   enabled: true
   createClusterScopedResources: false

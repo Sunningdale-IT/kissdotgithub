@@ -18,4 +18,20 @@ spec:
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+      - name: kibana-data
+        persistentVolumeClaim:
+          claimName: {{ include "kiss-eck.name" . }}-kibana-data
+  volumeClaimTemplates:
+  - metadata:
+      name: kibana-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: {{ .Values.storage.kibana.size }}
+      {{- if .Values.storage.storageClassName }}
+      storageClassName: {{ .Values.storage.storageClassName }}
+      {{- end }}
   version: {{ .Values.elasticVersion }}

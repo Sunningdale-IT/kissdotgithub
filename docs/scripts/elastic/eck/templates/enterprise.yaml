@@ -17,4 +17,16 @@ spec:
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+  - metadata:
+      name: enterprise-search-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: {{ .Values.storage.enterpriseSearch.size }}
+      {{- if .Values.storage.storageClassName }}
+      storageClassName: {{ .Values.storage.storageClassName }}
+      {{- end }}
   version: {{ .Values.elasticVersion }}
